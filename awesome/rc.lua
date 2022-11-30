@@ -364,9 +364,9 @@ end)
 
 -- {{{ Mouse bindings
 root.buttons(awful.util.table.join(
-    awful.button({ }, 3, function () mymainmenu:toggle() end),
-    awful.button({ }, 4, awful.tag.viewnext),
-    awful.button({ }, 5, awful.tag.viewprev)
+    awful.button({ }, 3, function () mymainmenu:toggle() end)
+    -- awful.button({ }, 4, awful.tag.viewnext),
+    -- awful.button({ }, 5, awful.tag.viewprev)
 ))
 -- }}}
 
@@ -442,10 +442,10 @@ globalkeys = awful.util.table.join(
     -- keyboard layout, kbdcfg
     awful.key({ "Mod1" }, "Shift_L", function () kbdcfg.switch() end),
     -- lockscreen
-    awful.key({ modkey, "Control" }, "Escape",
+    awful.key({ "Control" }, "Escape",
           function ()
               awful.util.spawn("sync")
-              awful.util.spawn("xautolock -locknow")
+              awful.util.spawn("i3lock")
           end), 
 
     -- Standard program
@@ -787,7 +787,7 @@ do
   end
 end
 
-awful.util.spawn_with_shell('~/.config/awesome/locker.sh')
+-- awful.util.spawn_with_shell('~/.config/awesome/locker.sh')
 
 beautiful.useless_gap = 10
 
