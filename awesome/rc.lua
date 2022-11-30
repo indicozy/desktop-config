@@ -422,9 +422,9 @@ globalkeys = awful.util.table.join(
         awful.util.spawn("light -A 5") end, {description = "Brightness up", group = "launcher"}),
 
     -- volume
-    awful.key({}, "XF86AudioRaiseVolume", function () awful.util.spawn("pactl -- set-sink-volume 0 +5%", false) end),
-    awful.key({}, "XF86AudioLowerVolume", function () awful.util.spawn("pactl -- set-sink-volume 0 -5%", false) end),
-    awful.key({}, "XF86AudioMute", function () awful.util.spawn("pactl set-sink-mute 0 toggle", false) end),
+    awful.key({}, "XF86AudioRaiseVolume", function () awful.util.spawn("pamixer -i 5", false) end),
+    awful.key({}, "XF86AudioLowerVolume", function () awful.util.spawn("pamixer -d 5", false) end),
+    awful.key({}, "XF86AudioMute", function () awful.util.spawn("pamixer -t", false) end),
 
     -- media
     awful.key({}, "XF86AudioPrev", function()
@@ -441,6 +441,12 @@ globalkeys = awful.util.table.join(
     end),
     -- keyboard layout, kbdcfg
     awful.key({ "Mod1" }, "Shift_L", function () kbdcfg.switch() end),
+    -- lockscreen
+    awful.key({ modkey, "Control" }, "Escape",
+          function ()
+              awful.util.spawn("sync")
+              awful.util.spawn("xautolock -locknow")
+          end), 
 
     -- Standard program
     awful.key({ modkey,           }, "Return", function () awful.spawn(terminal) end,
@@ -482,7 +488,7 @@ globalkeys = awful.util.table.join(
     -- awful.key({ modkey },            "r",     function () awful.screen.focused().mypromptbox:run() end,
     --           {description = "run prompt", group = "launcher"}),
 
-    awful.key({ modkey },            "r",     function () awful.util.spawn("rofi -show drun") end,
+    awful.key({ modkey },            "r",     function () awful.util.spawn("ulauncher") end,
               {description = "run prompt", group = "launcher"}),
 
     -- This function below will enable ssh login as long as the remote host is
@@ -665,6 +671,7 @@ awful.rules.rules = {
           "Sxiv",
           "Wpa_gui",
           "pinentry",
+          "ulauncher",
           "veromix",
           "xtightvncviewer"},
 
@@ -679,7 +686,13 @@ awful.rules.rules = {
 
     -- Add titlebars to normal clients and dialogs
     { rule_any = {type = { "normal", "dialog" }
-      }, properties = { titlebars_enabled = true }
+      }, properties = { titlebars_enabled = false }
+    },
+
+    { rule_any = {
+        instance = {"ulauncher"},
+      }, properties = { titlebars_enabled = false, border_width = 0,
+                     border_color = 0 }
     },
 
     -- Set Firefox to always map on the tag named "2" on screen 1.
@@ -762,7 +775,7 @@ do
   {
     "picom",
     "nm-applet",
-    "blueman-applet",
+    -- "blueman-applet",
     "flatpak run org.telegram.desktop -startintray",
     "flatpak run com.discordapp.Discord --start-minimized",
     "flatpak run org.flameshot.Flameshot",
@@ -773,6 +786,8 @@ do
     awful.util.spawn(i)
   end
 end
+
+awful.util.spawn_with_shell('~/.config/awesome/locker.sh')
 
 beautiful.useless_gap = 10
 
