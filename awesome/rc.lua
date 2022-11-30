@@ -767,6 +767,7 @@ do
     "flatpak run org.telegram.desktop -startintray",
     "flatpak run com.discordapp.Discord --start-minimized",
     "flatpak run org.flameshot.Flameshot",
+    "ulauncher"
   }
 
   for _,i in pairs(cmds) do
