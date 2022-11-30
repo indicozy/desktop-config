@@ -298,7 +298,7 @@ awful.screen.connect_for_each_screen(function(s)
     set_wallpaper(s)
 
     -- Each screen has its own tag table.
-    awful.tag({ "1", "2", "3", "4", "5", "6", "7", "8", "9" }, s, awful.layout.layouts[1])
+    awful.tag({ "web", "soc", "msc", "code", "5", "6", "7", "8", "9" }, s, awful.layout.layouts[1])
 
     -- Create a promptbox for each screen
     s.mypromptbox = awful.widget.prompt()
@@ -544,7 +544,7 @@ globalkeys = awful.util.table.join(
 clientkeys = awful.util.table.join(
     awful.key({ modkey,           }, "f",
         function (c)
-            c.fullscreen = not c.fullscreen
+            c.maximized = not c.maximized
             c:raise()
         end,
         {description = "toggle fullscreen", group = "client"}),
@@ -567,7 +567,7 @@ clientkeys = awful.util.table.join(
         {description = "minimize", group = "client"}),
     awful.key({ modkey,           }, "m",
         function (c)
-            c.maximized = not c.maximized
+            c.fullscreen = not c.fullscreen
             c:raise()
         end ,
         {description = "maximize", group = "client"})
