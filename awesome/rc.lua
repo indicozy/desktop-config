@@ -788,9 +788,15 @@ do
     awful.util.spawn(i)
   end
 end
-
 -- awful.util.spawn_with_shell('~/.config/awesome/locker.sh')
+-- }}}
 
 beautiful.useless_gap = 10
 
--- }}}
+local font = "SF Pro Display 10"
+beautiful.notification_font = font
+beautiful.font = font
+
+beautiful.notification_max_height = 100
+beautiful.notification_max_width = 300
+beautiful.notification_icon_size = 100

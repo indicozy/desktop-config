@@ -97,7 +97,7 @@
   #
   # Override the variant of the GTK theme. Commonly supported values are `dark`
   # and `light`. Set this to `None` to use the default theme variant.
-  #gtk_theme_variant: None
+  # gtk_theme_variant: Adwaita-dark
 
 #scrolling:
   # Maximum number of lines in the scrollback buffer.
@@ -156,7 +156,7 @@ font:
     #style: Bold Italic
 
   # Point size
-  size: 10.0
+  size: 8.0
 
   # Offset is the extra space around each character. `offset.y` can be thought
   # of as modifying the line spacing, and `offset.x` as modifying the letter
@@ -187,6 +187,23 @@ font:
 
 # If `true`, bold text is drawn using the bright color variants.
 #draw_bold_text_with_bright_colors: false
+# Colors (Doom One)
+colors:
+  # Default colors
+  primary:
+    background: '0x282c34'
+    foreground: '0xbbc2cf'
+
+  # Normal colors
+  normal:
+    black:   '0x282c34'
+    red:     '0xff6c6b'
+    green:   '0x98be65'
+    yellow:  '0xecbe7b'
+    blue:    '0x51afef'
+    magenta: '0xc678dd'
+    cyan:    '0x46d9ff'
+    white:   '0xbbc2cf'
 
 # Colors (Tomorrow Night)
 #colors:
