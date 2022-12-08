@@ -446,7 +446,18 @@ globalkeys = awful.util.table.join(
           function ()
               awful.util.spawn("sync")
               awful.util.spawn("i3lock")
-          end), 
+          end),
+
+    -- screenshot
+    awful.key({}, "Print", function()
+        awful.util.spawn_with_shell("flatpak run org.flameshot.Flameshot full --clipboard --path '/home/indicozy/Pictures/Screenshots'")
+    end),
+    awful.key({modkey}, "Print", function()
+        awful.util.spawn_with_shell("flatpak run org.flameshot.Flameshot gui")
+    end),
+    awful.key({"Control"}, "Print", function()
+        awful.util.spawn_with_shell("flatpak run org.flameshot.Flameshot full --clipboard")
+    end),
 
     -- Standard program
     awful.key({ modkey,           }, "Return", function () awful.spawn(terminal) end,
