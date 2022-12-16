@@ -191,8 +191,10 @@ vicious.register(mycpuwidget, vicious.widgets.cpu, "$1%")
 mybattery = wibox.widget.textbox()
 vicious.register(mybattery, function(format, warg)
     local args = vicious.widgets.bat(format, warg)
-    if args[2] < 50 then
+    if args[2] < 20 then
         args['{color}'] = 'red'
+    elseif args[2] < 50 then
+        args['{color}'] = 'yellow'
     else
         args['{color}'] = 'green'
     end
@@ -298,7 +300,7 @@ awful.screen.connect_for_each_screen(function(s)
     set_wallpaper(s)
 
     -- Each screen has its own tag table.
-    awful.tag({ "web", "soc", "msc", "code", "5", "6", "7", "8", "9" }, s, awful.layout.layouts[1])
+    awful.tag({ "web", "ide", "msc", "soc", "5", "6", "7", "8", "9" }, s, awful.layout.layouts[1])
 
     -- Create a promptbox for each screen
     s.mypromptbox = awful.widget.prompt()
@@ -452,7 +454,7 @@ globalkeys = awful.util.table.join(
     awful.key({}, "Print", function()
         awful.util.spawn_with_shell("flatpak run org.flameshot.Flameshot full --clipboard --path '/home/indicozy/Pictures/Screenshots'")
     end),
-    awful.key({modkey}, "Print", function()
+    awful.key({"Shift"}, "Print", function()
         awful.util.spawn_with_shell("flatpak run org.flameshot.Flameshot gui")
     end),
     awful.key({"Control"}, "Print", function()
@@ -501,7 +503,9 @@ globalkeys = awful.util.table.join(
     -- awful.key({ modkey },            "r",     function () awful.screen.focused().mypromptbox:run() end,
     --           {description = "run prompt", group = "launcher"}),
 
-    awful.key({ modkey },            "r",     function () awful.util.spawn("ulauncher") end,
+    awful.key({ modkey },            "r",     function () awful.util.spawn("ulauncher-toggle") end,
+              {description = "run ulauncher", group = "launcher"}),
+    awful.key({ modkey },            "g",     function () awful.util.spawn_with_shell('~/.config/awesome/starters/emacs.sh') end,
               {description = "run prompt", group = "launcher"}),
 
     -- This function below will enable ssh login as long as the remote host is
@@ -788,11 +792,12 @@ do
   {
     "picom",
     "nm-applet",
-    -- "blueman-applet",
+    "blueman-applet",
     "flatpak run org.telegram.desktop -startintray",
     "flatpak run com.discordapp.Discord --start-minimized",
     "flatpak run org.flameshot.Flameshot",
-    "ulauncher"
+    "ulauncher",
+    "/usr/libexec/polkit-gnome-authentication-agent-1"
   }
 
   for _,i in pairs(cmds) do
