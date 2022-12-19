@@ -225,8 +225,13 @@ kbdcfg.current = 1  -- us is our default layout
 kbdcfg.widget = wibox.widget.textbox()
 kbdcfg.widget.set_align = "right"
 kbdcfg.widget:set_text(" " .. kbdcfg.layout[kbdcfg.current][1] .. " ")
-kbdcfg.switch = function ()
-    kbdcfg.current = kbdcfg.current % #(kbdcfg.layout) + 1
+kbdcfg.switch = function (lang)
+    lang = lang or nil
+    if lang == nil then
+      kbdcfg.current = kbdcfg.current % #(kbdcfg.layout) + 1
+    else
+      kbdcfg.current = lang
+    end
     local t = kbdcfg.layout[kbdcfg.current]
     kbdcfg.widget.text = " " .. t[1] .. " "
     os.execute( kbdcfg.cmd .. " " .. t[1] .. " " .. t[2] )
@@ -447,6 +452,7 @@ globalkeys = awful.util.table.join(
     awful.key({ "Control" }, "Escape",
           function ()
               awful.util.spawn("sync")
+              kbdcfg.switch(1)
               awful.util.spawn("i3lock")
           end),
 
@@ -792,7 +798,7 @@ do
   {
     "picom",
     "nm-applet",
-    "blueman-applet",
+    -- "blueman-applet",
     "flatpak run org.telegram.desktop -startintray",
     "flatpak run com.discordapp.Discord --start-minimized",
     "flatpak run org.flameshot.Flameshot",
